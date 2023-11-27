@@ -103,3 +103,5 @@ a {
 .language:nth-child(8) {
     transition-delay: 1600ms;
 }
+.center {
+    align-content: center;
