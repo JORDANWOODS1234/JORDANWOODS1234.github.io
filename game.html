@@ -1,27 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title>Slither.io Clone - Loonride Example</title>
-    <script src="lib/phaser.min.js"></script>
-    <script src="src/game.js"></script>
-    <script src="src/snake.js"></script>
-    <script src="src/playerSnake.js"></script>
-    <script src="src/botSnake.js"></script>
-    <script src="src/eye.js"></script>
-    <script src="src/eyePair.js"></script>
-    <script src="src/shadow.js"></script>
-    <script src="src/food.js"></script>
-    <script src="src/util.js"></script>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>stickManJumperGame</title>
 </head>
 <body>
-    <script>
-    (function() {
-        var game = new Phaser.Game(800, 500, Phaser.AUTO, null);
 
-        game.state.add('Game', Game);
-        game.state.start('Game');
-    })();
-    </script>
+
+    <canvas id="myCanvas"></canvas>
+
+    <div class="buttonHome"><a href=""><h2>home</h2></a></div>
+    <div class="reset" onclick="reStart()"><h2>reset</h2></div>
+    <div id="winCondition" class="winCondition">
+        <h1>you win!</h1>
+        <div class="winHome"><a href=""><h2>home</h2></a></div>
+        <div class="reStart" onclick="reStart()"><h2>play again</h2></div>
+    </div>
+    
+    <script src="script.js"></script>
 </body>
 </html>
