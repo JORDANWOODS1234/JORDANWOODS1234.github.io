@@ -1,28 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
+<//Main JS File handling all the functions and operations in the game
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Balloon game</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700&display=swap" rel="stylesheet">
-</head>
+//Canvas Setup
+var canvas = document.getElementById('canvas1');
+const ctx = canvas.getContext('2d')
+canvas.width = 1600;
+canvas.height = 600;
 
-<body>
-    <div class="container">
-        <div class="score">0</div>
-        <div class="start-now">Press ▲ to fly the plane. Avoid the clouds, collect gems!</div>
-        <div class="plane"></div>
-        <div class="game-over">
-            <div class="game-over-display">GAME OVER!!!!</div>
-            <button class="replay" onClick="window.location.reload();">REPLAY</button>
-        </div>
-    </div>
-</body>
-<script type="text/javascript" src="script.js"></script>
+//Initialising variables
+let spacePressed = false;
+let hue = 0;
+let angle = 0;
+let frame = 0;
+let score = 0;
+let gamespeed = 3;
 
-</html>
+//Animate Function
+function animate(){
+
+    //Update score on each frame
+    score++;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    trailSystem();
+    obstacleSystem();
+    
+    //Initialising Airplane
+    plane.update();
+    plane.draw();
+
+    //Score Indicator
+    ctx.fillStyle = 'white';
+    ctx.font = '24px Poppins';
+    ctx.fillText('Score:  ' + score, 1400, 40);
+
+    //collision handling
+    collisionDetectionSystem();
+    if (collisionDetectionSystem()) {
+        return;
+    }
+
+    //Frames
+    requestAnimationFrame(animate);
+    angle += 0.1;
+    frame++;
+}
+animate();
+
+//Controllers
+window.addEventListener('keydown', function(e){
+    if (e.code === 'Space') {
+        spacePressed = true;
+    }
+});
+window.addEventListener('keyup', function(e){
+    if (e.code === 'Space') {
+        spacePressed = false;
+    }
+});
+
+//Collison Detection Algorithm
+const exp = new Image();
+exp.src = 'Assets/exp1.png';
+
+function collisionDetectionSystem(){
+    for (let i = 0; i < obstaclesArray.length; i++) {
+        if (plane.x < obstaclesArray[i].x + obstaclesArray[i].width && 
+            plane.x + plane.width > obstaclesArray[i].x &&
+            ((plane.y < 0 + obstaclesArray[i].top && plane.y + plane.height > 0) ||
+            (plane.y > canvas.height - obstaclesArray[i].bottom &&
+            plane.y + plane.height < canvas.height))) {
+            ctx.drawImage(exp, plane.x - 120, plane.y - 150, 360, 360);
+            ctx.font = "64px Grobold";
+            ctx.fillStyle = 'yellow';
+            ctx.fillText('Game Over!', 600, canvas.height/2 - 20);
+            ctx.fillText('Your Score is ' + score, 600, canvas.height/2 + 40);
+            return true;
+        }
+        
+    }
+}
