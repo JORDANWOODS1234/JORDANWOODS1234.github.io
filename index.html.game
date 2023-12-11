@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta content="initial-scale=1, minimum-scale=1, width=device-width" name="viewport">
+<title>Play Google Snake</title>
+<meta name="description" content="Play the classic snake game on Google. Eat the apples and grow your snake as long as possible." />
+<meta name="keywords" content="Play Google Snake Online" />
+<meta name="author" content="w3technic" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://snak.ee" />
+<meta property="og:site_name" content="Google Snake" />
+<meta property="og:title" content="Play Google Snake Online" />
+<meta property="og:description" content="Play the classic snake game on Google. Eat the apples and grow your snake as long as possible." />
+<meta property="og:image" content="https://snak.ee/thumb.jpeg" />
+<meta name="twitter:image:alt" content="Play Google Snake Online" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="robots" content="all" />
+<meta name="revisit-after" content="7 days" />
+<link rel="canonical" href="https://snak.ee" />
+<link rel="home" href="https://snak.ee/" />
+<link rel=" shortcut icon" href="favicon.ico" />
+<link rel="icon" type="image/x-icon" sizes="16x16" href="favicon.ico" />
+<link rel="icon" type="image/png" sizes="180x180" href="180.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="Google Snake" />
+<link rel="apple-touch-icon" sizes="180x180" href="180.png" />
+<script nonce="MbQrqGoifFdVWeMKcb2vew==">
+        (function() {
+            window.google = {
