@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css?family=VT323&display=swap" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Balloon game</title>
     <link rel="stylesheet" href="style.css">
-    <title>stickManJumperGame</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-
-
-    <canvas id="myCanvas"></canvas>
-
-    <div class="buttonHome"><a href=""><h2>home</h2></a></div>
-    <div class="reset" onclick="reStart()"><h2>reset</h2></div>
-    <div id="winCondition" class="winCondition">
-        <h1>you win!</h1>
-        <div class="winHome"><a href=""><h2>home</h2></a></div>
-        <div class="reStart" onclick="reStart()"><h2>play again</h2></div>
+    <div class="container">
+        <div class="score">0</div>
+        <div class="start-now">Press ▲ to fly the plane. Avoid the clouds, collect gems!</div>
+        <div class="plane"></div>
+        <div class="game-over">
+            <div class="game-over-display">GAME OVER!!!!</div>
+            <button class="replay" onClick="window.location.reload();">REPLAY</button>
+        </div>
     </div>
-    
-    <script src="script.js"></script>
 </body>
+<script type="text/javascript" src="script.js"></script>
+
 </html>
