@@ -1,78 +1,76 @@
-/* Prototype of simple mario-like game with jQuery */
-
-var x = 0;
-var y = 0;
-var mario = $(".mario");
-var box = $(".box");
-
-//on keydown event, check if it's left arrow or right arrow
-$(document).keydown(function(e) {
-  //console.log(e);
-
-  //if right, translate X +20px to mario
-  if (e.keyCode == "39") {
-    x = x + 20;
-    $(".mario").css("transform", "translate(" + x + "px," + y + "px)");
-  }
-
-  //if left, translate X -20px to mario - check to keep mario in the window (> 0px)
-  if (e.keyCode == "37") {
-    x = x - 20;
-    if (x >= 0) {
-      $(".mario").css("transform", "translate(" + x + "px," + y + "px)");
-    } else {
-      x = 0;
+"use strict";
+var cvs = document.getElementById("canvas");
+var ctx = cvs.getContext("2d");
+// load images
+var bird = new Image();
+var bg = new Image();
+var fg = new Image();
+var pipeNorth = new Image();
+var pipeSouth = new Image();
+bird.src = "images/bird.png";
+bg.src = "images/bg.png";
+fg.src = "images/fg.png";
+pipeNorth.src = "images/pipeNorth.png";
+pipeSouth.src = "images/pipeSouth.png";
+// some variables
+var gap = 85;
+var constant;
+var bX = 10;
+var bY = 150;
+var gravity = 1.5;
+var score = 0;
+// audio files
+var fly = new Audio();
+var scor = new Audio();
+fly.src = "sounds/fly.mp3";
+scor.src = "sounds/score.mp3";
+// on key down
+document.addEventListener("keydown", moveUp);
+function moveUp() {
+  bY -= 25;
+  fly.play();
+}
+// pipe coordinates
+var pipe = [];
+pipe[0] = {
+  x: cvs.width,
+  y: 0,
+};
+// draw images
+function draw() {
+  ctx.drawImage(bg, 0, 0);
+  for (var i = 0; i < pipe.length; i++) {
+    constant = pipeNorth.height + gap;
+    ctx.drawImage(pipeNorth, pipe[i].x, pipe[i].y);
+    ctx.drawImage(pipeSouth, pipe[i].x, pipe[i].y + constant);
+    pipe[i].x--;
+    if (pipe[i].x == 125) {
+      pipe.push({
+        x: cvs.width,
+        y: Math.floor(Math.random() * pipeNorth.height) - pipeNorth.height,
+      });
     }
-  }
-  //if up, translate Y -90px to mario
-  if (e.keyCode == "38") {
-    y = y - 90;
-    $(".mario").css("transform", "translate(" + x + "px," + y + "px)");
-
-    var mario_top = mario.offset().top;
-
-    var box_top = box.offset().top;
-
-    //check for collision with coin box
+    // detect collision
     if (
-      mario.offset().left + mario.width() / 2 > box.offset().left &&
-      mario.offset().top > box.offset().top
+      (bX + bird.width >= pipe[i].x &&
+        bX <= pipe[i].x + pipeNorth.width &&
+        (bY <= pipe[i].y + pipeNorth.height ||
+          bY + bird.height >= pipe[i].y + constant)) ||
+      bY + bird.height >= cvs.height - fg.height
     ) {
-      if (
-        mario.offset().left + mario.width() / 2 <
-        box.offset().left + box.width()
-      ) {
-        console.log("touch !");
-
-        //start box animation after 0.1s (time for mario's jump)
-        setTimeout(function() {
-          $(".coin").addClass("coin_animation");
-          $(".box").addClass("box_animation");
-        }, 100);
-
-        //show the winner title screen
-        setTimeout(function() {
-          $(".title").removeClass("hide");
-        }, 500);
-      }
+      location.reload(); // reload the page
     }
-
-    //reset mario jump
-    setTimeout(function() {
-      y = y + 90;
-      $(".mario").css("transform", "translate(" + x + "px," + y + "px)");
-    }, 200);
+    if (pipe[i].x == 5) {
+      score++;
+      scor.play();
+    }
   }
-});
-
-//reset game
-$(".title a").click(function() {
-  x = 0;
-  y = 0;
-  $(".mario").css("transform", "translate(0px,0px)");
-  $(".coin").removeClass("coin_animation");
-  $(".box").removeClass("box_animation");
-  setTimeout(function() {
-    $(".title").addClass("hide");
-  }, 100);
-});
+  ctx.drawImage(fg, 0, cvs.height - fg.height);
+  ctx.drawImage(bird, bX, bY);
+  bY += gravity;
+  ctx.fillStyle = "#000";
+  ctx.font = "20px Verdana";
+  ctx.fillText("Score : " + score, 10, cvs.height - 20);
+  requestAnimationFrame(draw);
+}
+draw();
