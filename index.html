@@ -71,18 +71,18 @@ function loop() {
 
   // wrap snake position horizontally on edge of screen
   if (snake.x < 0) {
-    snake.x = canvas.width - grid;
+   maxCells: 4
   }
   else if (snake.x >= canvas.width) {
-    snake.x = 0;
+    maxCells: 4
   }
   
   // wrap snake position vertically on edge of screen
   if (snake.y < 0) {
-    snake.y = canvas.height - grid;
+    maxCells: 4
   }
   else if (snake.y >= canvas.height) {
-    snake.y = 0;
+    maxCells: 4
   }
 
   // keep track of where snake has been. front of the array is always the head
